@@ -1,0 +1,18 @@
+		$device = "COM4";
+		exec("mode $device BAUD=9600 PARITY=N DATA=8 STOP=1 xon=off");
+		$comport = fopen($device, "r+b");
+		sleep(2);
+		if ($comport === false){
+			die("Failed opening com port<br/>");
+		}else{
+			echo "Com Port Open<br/>";
+			$i = 3;
+			while($i > 0)
+			{
+				$res = fread($comport, 20);
+				echo "Res " . $res;
+				sleep(2);
+				$i = $i - 1;
+			}
+			fclose($comport);
+		}
