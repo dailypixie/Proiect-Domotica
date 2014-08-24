@@ -78,7 +78,7 @@ Serial::~Serial()
 	}
 }
 
-int Serial::ReadData(char *buffer, unsigned int nbChar)
+int Serial::ReadData(char *buffer, unsigned int nbChar, int* queueSize)
 {
 	//Number of bytes we'll have read
 	DWORD bytesRead;
@@ -87,16 +87,19 @@ int Serial::ReadData(char *buffer, unsigned int nbChar)
 
 	//Use the ClearCommError function to get status info on the Serial port
 	ClearCommError(this->hSerial, &this->errors, &this->status);
-
+	*queueSize = this->status.cbInQue;
 	//Check if there is something to read
-	if (this->status.cbInQue>0)
+	if (this->status.cbInQue > 0)
 	{
 		//If there is we check if there is enough data to read the required number
 		//of characters, if not we'll read only the available characters to prevent
 		//locking of the application.
 		toRead = this->status.cbInQue;
 		if (toRead > nbChar)
+		{
 			printf("Warning BUFFER OVERFLOW!!!\n");
+			toRead = nbChar;
+		}
 		//Try to read the require number of chars, and return the number of read bytes on success
 		if (ReadFile(this->hSerial, buffer, toRead, &bytesRead, NULL) && bytesRead != 0)
 		{
@@ -104,11 +107,15 @@ int Serial::ReadData(char *buffer, unsigned int nbChar)
 			*link = 0;
 			return bytesRead;
 		}
+		else
+		{
+			printf("Error! Could not read from COM port! To read size:%d", toRead);
+		}
 
 	}
 
 	//If nothing has been read, or that an error was detected return -1
-	return -1;
+	return 0;
 
 }
 
@@ -122,7 +129,6 @@ bool Serial::WriteData(char *buffer, unsigned int nbChar)
 	{
 		//In case it don't work get comm error and return false
 		ClearCommError(this->hSerial, &this->errors, &this->status);
-
 		return false;
 	}
 	else

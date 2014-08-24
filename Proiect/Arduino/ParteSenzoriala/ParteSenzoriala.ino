@@ -1,4 +1,5 @@
-
+#define READ_COMMAND "Read"
+#define WRITE_COMMAND "Write"
 // the setup routine runs once when you press reset:
 void setup() {                
   //init serial comm
@@ -9,13 +10,9 @@ void setup() {
 void loop() {
   static int i=0;
   String lBuffer;
-  bool isReady = false;
-  if (Serial.available())
+
+  if (Serial.available() && Serial.read() == 'R')
   {
-    isReady = true;
-   Serial.write(Serial.read());
-  }
-  if(isReady){
     //c1
     lBuffer = ScrieCamera(++i,22,23, "C1");
     //c2
@@ -34,9 +31,8 @@ void loop() {
     lBuffer.toCharArray(charBuff, len);
     Serial.write((uint8_t*)charBuff, len);
     Serial.flush();
-    delay(500);
+    delay(50);
     delete charBuff;
-    isReady = false;
   }
 }
 
@@ -45,11 +41,11 @@ String ScrieCamera(int temp, int lum, int umid, const char* nume)
   String s;
   s += nume;
   s += "\n";
- // s += "Temp:";
+  s += "Temp:";
   s += temp ; 
- // s += "Lum:";
+  s += "Lum:";
   s += lum;
- // s += "Umid";
+  s += "Umid";
   s +=  umid ;
   s +=  "\n";
   return s;

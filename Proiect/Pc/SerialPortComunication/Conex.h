@@ -2,7 +2,7 @@
 #define __CONEX__
 
 #include "Serial.h"
-#define LENGTH 200
+
 #define SLEEP_TIME 2000
 class Conex
 {
@@ -20,33 +20,28 @@ public:
 		return false;
 	}
 
-	char* ReadInfo()
+	int ReadInfo(char* buffer, int dataLength, int *queueSize)
 	{
-		char incomingData[LENGTH] = "";			// don't forget to pre-allocate memory
-		int dataLength = LENGTH - 1;
 		int readResult = 0;
-
 		if (SP->IsConnected())
 		{
 			//Request
-			char msg[] = "ready";
-			SP->WriteData(msg, strlen(msg));
-			readResult = SP->ReadData(incomingData, dataLength);
-			FILE* f;
-			errno_t er = fopen_s(&f, "Input", "w");
-			if (strlen(incomingData))
-			{
-				if (f != NULL)
-					fprintf(f, "%s\n", incomingData);
-				else
-					printf("%d", er);
-				system("cls");
-				printf(incomingData);
-			}
-			fclose(f);
-			Sleep(SLEEP_TIME);
+			readResult = SP->ReadData(buffer, dataLength, queueSize);
 		}
-		return "";
+		return readResult;
+	}
+	bool WriteInfo(char* writeChar, int size)
+	{
+		printf(writeChar);
+		if (SP->IsConnected())
+		{
+			char msg[] = "Write";
+			bool result = SP->WriteData(msg, strlen(msg));
+			result = SP->WriteData(writeChar, size);
+			if (result)
+				return true;
+		}
+		return false;
 	}
 };
 #endif 
