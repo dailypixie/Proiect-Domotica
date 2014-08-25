@@ -13,6 +13,7 @@ void loop() {
 
   if (Serial.available() && Serial.read() == 'R')
   {
+    Serial.flush();
     //c1
     lBuffer = ScrieCamera(++i,22,23, "C1");
     //c2
@@ -31,7 +32,6 @@ void loop() {
     lBuffer.toCharArray(charBuff, len);
     Serial.write((uint8_t*)charBuff, len);
     Serial.flush();
-    delay(50);
     delete charBuff;
   }
 }
@@ -41,12 +41,12 @@ String ScrieCamera(int temp, int lum, int umid, const char* nume)
   String s;
   s += nume;
   s += "\n";
-  s += "Temp:";
+  
   s += temp ; 
-  s += "Lum:";
+  s += "\n";
   s += lum;
-  s += "Umid";
+  s += "\n";
   s +=  umid ;
-  s +=  "\n";
+  s += "\n";
   return s;
 }

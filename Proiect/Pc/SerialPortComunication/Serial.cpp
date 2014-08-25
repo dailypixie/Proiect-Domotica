@@ -77,7 +77,12 @@ Serial::~Serial()
 		CloseHandle(this->hSerial);
 	}
 }
-
+void Replace(char* buffer, int size)
+{
+	for (int i = 0; i < size; ++i)
+	if (buffer[i] == 0)
+		buffer[i] = 20;
+}
 int Serial::ReadData(char *buffer, unsigned int nbChar, int* queueSize)
 {
 	//Number of bytes we'll have read
@@ -105,6 +110,7 @@ int Serial::ReadData(char *buffer, unsigned int nbChar, int* queueSize)
 		{
 			char* link = buffer + (char)bytesRead + toRead + 1;
 			*link = 0;
+			Replace(buffer, bytesRead);
 			return bytesRead;
 		}
 		else

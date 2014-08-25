@@ -8,12 +8,7 @@
 #define WRITE_COMMAND "W"
 #define INPUT_FILENAME "Input"
 #define OUTPUT_FILENAME "Output"
-void Replace(char* buffer, int size)
-{
-	for (int i = 0; i < size; ++i)
-	if (buffer[i] == 0)
-		buffer[i] = 20;
-}
+
 time_t gTime;
 void InitTime()
 {
@@ -31,8 +26,10 @@ int _tmain(int argc, _TCHAR* argv[])
 	Conex c;
 	c.Connect();
 	
-	while (true)
+	//while (true)
+	for (int i = 0; i < 1000; ++i)
 	{
+		Sleep(2000);
 		FILE *fInput, *fOutput;
 		errno_t erInput = fopen_s(&fInput, INPUT_FILENAME, "w");
 		errno_t erOutput = fopen_s(&fOutput, OUTPUT_FILENAME, "a+");
@@ -48,16 +45,16 @@ int _tmain(int argc, _TCHAR* argv[])
 		
 		int queueSize;
 		c.WriteInfo(READ_COMMAND, sizeof(READ_COMMAND - 1));
-		//Sleep(100);
+		Sleep(1000);
 		int readBytes = c.ReadInfo(incomingData, dataLength, &queueSize);
 		if (readBytes)
 		{
 			fwrite(incomingData, sizeof(char), readBytes, fInput);
 			system("cls");
-			Replace(incomingData, readBytes);
+			//Replace(incomingData, readBytes);
 			printf(incomingData);
 			printf("\nQueueSize:%d", queueSize);
-			if (queueSize != 164)
+			if (queueSize > 164)
 			{
 				printf("Time since program start:%d", GetTimeDif());
 				Sleep(INFINITE);
@@ -76,7 +73,6 @@ int _tmain(int argc, _TCHAR* argv[])
 			c.WriteInfo(outgoingData, size);
 			printf("Writing to Arduino");
 		}
-		Sleep(500);
 		_fcloseall();
 		delete outgoingData;
 	}

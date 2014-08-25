@@ -47,3 +47,17 @@ Icon
 # Files that might appear on external disk
 .Spotlight-V100
 .Trashes
+
+Proiect/Pc/Release/Output
+Proiect/Pc/Debug/Input
+Proiect/Pc/Debug/Output
+Proiect/Pc/Release/Input
+Proiect/Pc/SerialPortComunication.v12.suo
+Proiect/Pc/SerialPortComunication.v12.suo
+Proiect/Pc/SerialPortComunication.v12.suo
+Proiect/Pc/SerialPortComunication/Input
+Proiect/Pc/SerialPortComunication/Output
+Proiect/WebSite/Input
+Proiect/Pc/SerialPortComunication.v12.suo
+*.suo
+Proiect/WebSite/Debug.txt
