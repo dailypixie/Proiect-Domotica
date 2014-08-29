@@ -35,9 +35,7 @@ public:
 		printf(writeChar);
 		if (SP->IsConnected())
 		{
-			char msg[] = "Write";
-			bool result = SP->WriteData(msg, strlen(msg));
-			result = SP->WriteData(writeChar, size);
+			bool result = SP->WriteData(writeChar, size);
 			if (result)
 				return true;
 		}

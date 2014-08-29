@@ -51,10 +51,10 @@
 		echo '</style> <H1 align = "center">Status</H1>';
 		#StartCommApp();
 	    $valoriFisier = array(18);
-		@$file_handle = fopen("E:\Proiect Domotica\Proiect-Domotica\Proiect\Pc\SerialPortComunication\Input", "r") ;
+		@$file_handle = FALSE ;
 		@$file_handle2 = fopen("Debug.txt", "w+") or die("Could not openn") ;
 		
-		while($file_handle == false)
+		while($file_handle == FALSE )
 		{
 			@$file_handle = fopen("E:\Proiect Domotica\Proiect-Domotica\Proiect\Pc\SerialPortComunication\Input", "r");
 		}	

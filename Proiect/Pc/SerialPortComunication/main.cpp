@@ -7,7 +7,7 @@
 #define READ_COMMAND "R"
 #define WRITE_COMMAND "W"
 #define INPUT_FILENAME "Input"
-#define OUTPUT_FILENAME "Output"
+#define SANITY_CHECK 80
 
 time_t gTime;
 void InitTime()
@@ -26,55 +26,45 @@ int _tmain(int argc, _TCHAR* argv[])
 	Conex c;
 	c.Connect();
 	
-	//while (true)
-	for (int i = 0; i < 1000; ++i)
+	while (true)
 	{
-		Sleep(2000);
-		FILE *fInput, *fOutput;
-		errno_t erInput = fopen_s(&fInput, INPUT_FILENAME, "w");
-		errno_t erOutput = fopen_s(&fOutput, OUTPUT_FILENAME, "a+");
-		if (erInput || erOutput)
-		{
-			printf("\nFailed to open files!(%d %d)", erInput, erOutput);
-			exit(1);
-		}
-
 		char incomingData[LENGTH];
 		int dataLength = LENGTH - 1;
 		incomingData[LENGTH-1] = 0;
 		
 		int queueSize;
+	REQUEST:
 		c.WriteInfo(READ_COMMAND, sizeof(READ_COMMAND - 1));
-		Sleep(1000);
+		Sleep(500);
+	READBYTES:
 		int readBytes = c.ReadInfo(incomingData, dataLength, &queueSize);
 		if (readBytes)
 		{
-			fwrite(incomingData, sizeof(char), readBytes, fInput);
-			system("cls");
-			//Replace(incomingData, readBytes);
-			printf(incomingData);
-			printf("\nQueueSize:%d", queueSize);
-			if (queueSize > 164)
+			if (readBytes > SANITY_CHECK)
 			{
-				printf("Time since program start:%d", GetTimeDif());
-				Sleep(INFINITE);
+				FILE *fInput;
+				errno_t erInput = fopen_s(&fInput, INPUT_FILENAME, "w");
+				if (erInput)
+				{
+					printf("\nFailed to open file!Error: %d!", erInput);
+					exit(1);
+				}
+				fwrite(incomingData, sizeof(char), readBytes, fInput);
+				system("cls");
+				printf(incomingData);
+				printf("\n QueueSize:%d", queueSize);
+			}
+			else
+			{
+				goto REQUEST;
 			}
 		}
-
-		fseek(fOutput, 0, SEEK_END);   // non-portable
-		int size = ftell(fOutput);
-		char* outgoingData = new char[size];
-		rewind(fOutput);
-		if (size)
+		else
 		{
-			fread(outgoingData, sizeof(char), size, fOutput);
-			c.WriteInfo(WRITE_COMMAND, strlen(WRITE_COMMAND - 1));
 			Sleep(1000);
-			c.WriteInfo(outgoingData, size);
-			printf("Writing to Arduino");
+			goto READBYTES;
 		}
 		_fcloseall();
-		delete outgoingData;
 	}
 	return 0;
 }
