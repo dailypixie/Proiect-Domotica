@@ -61,3 +61,5 @@ Proiect/WebSite/Input
 Proiect/Pc/SerialPortComunication.v12.suo
 *.suo
 Proiect/WebSite/Debug.txt
+*.suo
+*.tmp
