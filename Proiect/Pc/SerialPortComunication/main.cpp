@@ -7,22 +7,11 @@
 #define READ_COMMAND "R"
 #define WRITE_COMMAND "W"
 #define INPUT_FILENAME "Input"
-#define SANITY_CHECK 80
+#define SANITY_CHECK 14
 
 time_t gTime;
-void InitTime()
-{
-	time(&gTime);
-}
-int GetTimeDif()
-{
-	time_t curTime;
-	time(&curTime);
-	return difftime(curTime, gTime);
-}
 int _tmain(int argc, _TCHAR* argv[])
 {
-	InitTime();
 	Conex c;
 	c.Connect();
 	
@@ -56,6 +45,8 @@ int _tmain(int argc, _TCHAR* argv[])
 			}
 			else
 			{
+				printf("\n QueueSize:%d", queueSize);
+				printf("\n Size:%d", readBytes);
 				goto REQUEST;
 			}
 		}
