@@ -42,10 +42,10 @@
 		$gasAllert = "<td>" . "<h3>Alerta Gaz</h3> " ;
 		if ($gasLed)
 		{
-			$gasAllert = $gasAllert . $redLedOn . $greenLedOn;
+			$gasAllert = $gasAllert . $redLedOn . $greenLedOff;
 		}
 		else{
-			$gasAllert = $gasAllert . $redLedOff . $greenLedOff;
+			$gasAllert = $gasAllert . $redLedOff . $greenLedOn;
 		}
 		
 		//Temp chamber creation
@@ -63,10 +63,10 @@
 		$tempAllert = "<td>" . "<h3>Alerta Temperatura</h3> " ;
 		if ($tempCooler)
 		{
-			$tempAllert = $tempAllert . $redLedOn . $greenLedOn;
+			$tempAllert = $tempAllert . $redLedOn . $greenLedOff;
 		}
 		else{
-			$tempAllert = $tempAllert . $redLedOff . $greenLedOff;
+			$tempAllert = $tempAllert . $redLedOff . $greenLedOn;
 		}
 		
 		$gasTable = $tableInit . $gasChamber . $gasAllert . $tableEnd;
