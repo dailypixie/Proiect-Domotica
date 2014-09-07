@@ -1,0 +1,33 @@
+FEATURES DESCRIPTION
+The LM50/LM50-Q1 is a precision integrated-circuit
+temperature sensor that can sense a −40°C to (Centigrade)
++125°C temperature range using a single positive supply. The LM50/LM50-Q1's output voltage is
+linearly proportional to Celsius (Centigrade) temperature (+10 mV/°C) and has a DC offset of 
++500 mV. The offset allows reading negative temperatures without the need for a negative supply.
+
+
+
+• Suitable for Remote Applications 
+• Low Cost Due to Wafer-level Trimming T
+• Operates from 4.5V to 10V 
+• UL Recognized Component 
+• Automotive 130 μA, se
+• Calibrated Directly in Degree Celsius
+• Less than 130 μA Current Drain 
+• Linear + 10.0 mV/°C Scale Factor 
+• ±2°C Accuracy Specified at +25°C 
+• Nonlinearity Less than 0.8°C Over Temp
+• Specified for Full −40° to +125°C range
+• Low Self-heating, Less than 0.2°C in Still Air 
+
+APPLICATIONS 
+• Automotive 130 μA, self-heating is limited to a very low 0.2°C in
+• Computers still air.
+• Disk Drives
+• Battery Management
+• Automotive
+• FAX Machines
+• Printers
+• Portable Medical Instruments
+• HVAC Top View
+• Power Supply Modules 
