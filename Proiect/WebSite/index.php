@@ -75,7 +75,7 @@
 		return $gasTable . $tempTable;
 		}	
 		//Scrierea titlului
-		echo '</style> <H1 align = "center">Status</H1>';
+		echo '</style> <H1>Status</H1>';
 
 	    $valoriFisier = array(5);
 		@$file_handle = FALSE ;
