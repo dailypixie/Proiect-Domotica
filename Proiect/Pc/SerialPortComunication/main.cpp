@@ -9,7 +9,6 @@
 #define INPUT_FILENAME "Input"
 #define SANITY_CHECK 14
 
-time_t gTime;
 int _tmain(int argc, _TCHAR* argv[])
 {
 	Conex c;

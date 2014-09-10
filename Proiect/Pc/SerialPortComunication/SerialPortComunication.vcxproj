@@ -78,6 +78,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Conex.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Serial.cpp" />
   </ItemGroup>
