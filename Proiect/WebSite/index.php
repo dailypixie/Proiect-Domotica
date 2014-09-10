@@ -29,7 +29,7 @@
 		//GasChamber creation
 		$gasChamber = "<td>" .
 		"<h3>Gaz</h3> " . 
-		" GasValue: " . $gasValue;
+		" Valoare Gaz: " . $gasValue;
 		if ($gasCooler)  
 		{
 			$gasChamber = $gasChamber . $fanActivePath . "</td>";
@@ -49,7 +49,7 @@
 		}
 		
 		//Temp chamber creation
-		$tempChamber = "<td>" . "<h3>Temp</h3> " . "TempValue:" . $tempValue;
+		$tempChamber = "<td>" . "<h3>Temperatura</h3> " . "Valoare Temperatura:" . $tempValue;
 		if($tempCooler)
 		{
 			$tempChamber = $tempChamber . $fanActivePath . "</td>";
@@ -63,22 +63,23 @@
 		$tempAllert = "<td>" . "<h3>Alerta Temperatura</h3> " ;
 		if ($tempCooler)
 		{
-			$tempAllert = $tempAllert . $redLedOn . $greenLedOff;
+			$tempAllert = $tempAllert . $redLedOn . "<br>" . $greenLedOff;
 		}
 		else{
-			$tempAllert = $tempAllert . $redLedOff . $greenLedOn;
+			$tempAllert = $tempAllert . $redLedOff . "<br>" . $greenLedOn;
 		}
 		
 		$gasTable = $tableInit . $gasChamber . $gasAllert . $tableEnd;
 		$tempTable = $tableInit . $tempChamber . $tempAllert . $tableEnd;
 		
-		return $gasTable . $tempTable;}	
-	
+		return $gasTable . $tempTable;
+		}	
+		//Scrierea titlului
 		echo '</style> <H1 align = "center">Status</H1>';
-		#StartCommApp();
+
 	    $valoriFisier = array(5);
 		@$file_handle = FALSE ;
-		
+		//Aici se citeste din fisier
 		while($file_handle == FALSE )
 		{
 			@$file_handle = fopen("E:\Proiect Domotica\Proiect-Domotica\Proiect\Pc\SerialPortComunication\Input", "r");
@@ -91,7 +92,7 @@
 			$valoriFisier[5] = fgets($file_handle);
 		}
 		fclose($file_handle);
-		
+		//Apelarea functiei ce generează pagina html
 		echo CreateChambers(
 		intval($valoriFisier[1]) ,intval($valoriFisier[2]) ,intval($valoriFisier[3]),
 		intval($valoriFisier[4]) ,intval($valoriFisier[5])); 
