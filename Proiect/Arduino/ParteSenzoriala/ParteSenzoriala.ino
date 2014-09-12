@@ -7,7 +7,7 @@
 #define TEMP_COOLER 7
 
 #define GAS_SENSOR 5
-
+#define GAS_BUZZER 5
 #define GAS_LED 13
 #define GAS_COOLER 8
 #define GAS_MAX 60
@@ -39,12 +39,14 @@ void loop() {
   {
       StartLed(GAS_LED);
       StartCooler(GAS_COOLER);
+      StartBuzzer(GAS_BUZZER);
       wasGasDangerousState = true;
   }
   else if(wasGasDangerousState)
   {
      StopLed(GAS_LED);
      StopCooler(GAS_COOLER);
+     StopBuzzer(GAS_BUZZER);
      wasGasDangerousState = false;
   }
   //check for dangerous temperature situations
@@ -141,5 +143,13 @@ void StartLed(int led)
 void StopLed(int led)
 {
   digitalWrite(led, LOW);
+}
+void StartBuzzer(int buzzer)
+{
+  digitalWrite(buzzer, HIGH);
+}
+void StopBuzzer(int buzzer)
+{
+  digitalWrite(buzzer, LOW);
 }
 
