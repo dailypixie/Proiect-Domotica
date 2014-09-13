@@ -9,7 +9,7 @@ class Conex
 	Serial* SP;
 	bool SendInfoRequest();
 public:
-	bool Connect();
+	bool Connect(int port);
 
 	int ReadInfo(char* buffer, int dataLength, int *queueSize);
 

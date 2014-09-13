@@ -12,7 +12,10 @@
 int _tmain(int argc, _TCHAR* argv[])
 {
 	Conex c;
-	c.Connect();
+	printf("Introduce-ti portul dorit:");
+	int port = 19;
+	scanf_s("%d", &port);
+	c.Connect(port);
 	
 	while (true)
 	{

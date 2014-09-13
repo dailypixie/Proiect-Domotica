@@ -1,8 +1,11 @@
 #include "Conex.h"
 
-bool Conex::Connect()
+bool Conex::Connect(int port)
 {
-	SP = new Serial("\\\\.\\COM19");    // adjust as needed
+	
+	char temp[20];
+	sprintf_s(temp, "%s%d", "\\\\.\\COM", port);
+		SP = new Serial(temp);    // adjust as needed
 	if (SP->IsConnected())
 	{
 		printf("We're connected\n");
