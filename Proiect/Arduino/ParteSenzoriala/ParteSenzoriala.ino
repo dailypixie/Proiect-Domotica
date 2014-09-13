@@ -4,13 +4,15 @@
 
 #define TEMP_SENSOR 0
 #define TEMP_MAX 35
+#define TEMP_NEED 30
 #define TEMP_COOLER 7
 
 #define GAS_SENSOR 5
 #define GAS_BUZZER 5
 #define GAS_LED 13
 #define GAS_COOLER 8
-#define GAS_MAX 60
+#define GAS_MAX 40
+#define GAS_NEED 30
 
 //#define DEBUG 
 
@@ -42,7 +44,7 @@ void loop() {
       StartBuzzer(GAS_BUZZER);
       wasGasDangerousState = true;
   }
-  else if(wasGasDangerousState)
+  else if(wasGasDangerousState && gas < GAS_NEED)
   {
      StopLed(GAS_LED);
      StopCooler(GAS_COOLER);
@@ -51,12 +53,13 @@ void loop() {
   }
   //check for dangerous temperature situations
   int temp = TempInCelsius(5);
+  temp -= wasGasDangerousState ? 2 : 0;
   if(temp >= TEMP_MAX)
   {
       StartCooler(TEMP_COOLER);
       wasTempDangerousState = true;
   }
-  else if(wasTempDangerousState)
+  else if(wasTempDangerousState && temp < TEMP_NEED)
   {
      StopCooler(TEMP_COOLER);
      wasTempDangerousState = false;

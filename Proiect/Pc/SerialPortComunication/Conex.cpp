@@ -2,7 +2,7 @@
 
 bool Conex::Connect()
 {
-	SP = new Serial("\\\\.\\COM4");    // adjust as needed
+	SP = new Serial("\\\\.\\COM19");    // adjust as needed
 	if (SP->IsConnected())
 	{
 		printf("We're connected\n");
