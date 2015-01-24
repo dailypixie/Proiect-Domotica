@@ -109,13 +109,17 @@ void loop() {
 
 int LuminosityPercentage()
 {
+  static int dummyLumRead = 0;
+  dummyLumRead = dummyLumRead <=100 ? dummyLumRead + 1: 0;
   int analog_reading = analogRead(LIGHT_SENSOR); 
-  return map(analog_reading, 0, 1023, 0, 100);
+  return map(dummyLumRead, 0, 1023, 0, 100);
 }
 int GasPercentage()
 {
+  static int dummyGasRead = 0;
+  dummyGasRead = dummyGasRead <=100 ? dummyGasRead + 10: 0;
   int analog_reading = analogRead(GAS_SENSOR); 
-  return map(analog_reading, 0, 1023, 0, 100);
+  return map(dummyGasRead, 0, 1023, 0, 100);
 }
 int TempInCelsius(int count)
 {
@@ -128,7 +132,10 @@ int TempInCelsius(int count)
     float temperatureCelsius = (voltage - 0.5) * 100 ;
     sumaTemperatura = sumaTemperatura + temperatureCelsius;
   }
-  return sumaTemperatura / (float)count;
+//  return sumaTemperatura / (float)count;
+  static int dummyTempRead = 0;
+  dummyTempRead=dummyTempRead <=30 ? dummyTempRead + 10: 0;
+  return dummyTempRead;
 }
 
 void StartCooler(int coolerNumber)
